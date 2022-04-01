@@ -9,7 +9,7 @@ function NavBar() {
             <Container>
                 <ul className={styles.list} >
                     <li className={styles.item}>
-                        <Link to="/" > <img src={logo} alt="" /> </Link>
+                        <Link to="/" > <img src={logo} alt="" /></Link>
 
                     </li>
 
@@ -19,7 +19,7 @@ function NavBar() {
                     </li>
                     <li className={styles.item}  >
 
-                        <Link to="/projects" > Projects </Link>
+                        <Link to="/newprojects" > Projects </Link>
 
                     </li>
 
