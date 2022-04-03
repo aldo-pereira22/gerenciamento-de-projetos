@@ -22,14 +22,24 @@ function ProjectForm({ btnText, handleSubmit, projectData }) {
 
     },[])
 
+
+    const submit = (e) => {
+        e.preventDefault()
+        handleSubmit(project)
+    }
+
+    function handleChange(e){
+        setProject({...project,[e.target.name]: e.target.value})
+        console.log(project)
+    }
     return (
 
-        <form className={styles.form}>
-            <Input type="text" text="Nome do Projeto" name="name" placeholder="Insira o nome do projeto" />
+        <form onSubmit={submit} className={styles.form}>
+            <Input type="text" text="Nome do Projeto" name="name" placeholder="Insira o nome do projeto" handleOnChange={handleChange}/>
 
-            <Input type="number" text="Orçamento do projeto" name="budget" placeholder="Insira o orçamento total" />
+            <Input type="number" text="Orçamento do projeto" name="budget" placeholder="Insira o orçamento total" handleOnChange={handleChange} />
 
-            <Select name="category_id" text="Selecione uma categoria" options={categories} />
+            <Select name="category_id" text="Selecione uma categoria" options={categories} handleOnChange={handleChange} />
 
             <SubmitButton text={btnText} />
 
