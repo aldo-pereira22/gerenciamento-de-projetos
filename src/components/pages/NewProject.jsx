@@ -22,11 +22,12 @@ function NewProject() {
         )
         .then( (data) => {
             console.log(data)
-            navigate('/projects',{message:'Novo projeto criado'})
+            navigate('/projects', { state: {message: 'Projeto criado com sucesso!'} })
         } )
         .catch( err => console.log(err))
         return true
     }
+
 
 
     return (
