@@ -7,11 +7,12 @@ import LinkButton from "../layouts/LinkButton";
 import ProjectCard from "../project/ProjectCard";
 import { useEffect } from "react";
 import { useState } from "react";
+import Loading from "../layouts/Loading";
 
 
 function Projects() {
     const [projects, setProjects] = useState([])
-
+    const [removeLoadging, setRemoveLoading] = useState(true)
 
     const location = useLocation()
     let message = ''
@@ -20,17 +21,18 @@ function Projects() {
     }
 
     useEffect(() => {
-        fetch('http://localhost:5000/projects', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(resp => resp.json())
-            .then(data => {
-                console.log(data)
-                setProjects(data)
-            })
-            .catch(err => console.log(err))
+            fetch('http://localhost:5000/projects', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(resp => resp.json())
+                .then(data => {
+                    console.log(data)
+                    setProjects(data)
+                    setRemoveLoading(false)
+                })
+                .catch(err => console.log(err))
     }, [])
     return (
 
@@ -40,8 +42,8 @@ function Projects() {
                 <LinkButton to="/newprojects" text="Criar Projeto" />
 
             </div>
-            {message && <Message type="success" msg={message} />}
             <Container custonClass="start" >
+                <br />
                 {projects.length > 0 &&
                     projects.map((project) => (
                         <ProjectCard
@@ -53,6 +55,8 @@ function Projects() {
                         />
                     ))
                 }
+            {message && <Message type="success" msg={message} />}
+
             </Container>
         </div>
 
