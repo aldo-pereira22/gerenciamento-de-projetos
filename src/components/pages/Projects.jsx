@@ -13,6 +13,7 @@ import Loading from "../layouts/Loading";
 function Projects() {
     const [projects, setProjects] = useState([])
     const [removeLoadging, setRemoveLoading] = useState(true)
+    const [projectMessage, setProjectMessage] = useState('')
 
     const location = useLocation()
     let message = ''
@@ -34,6 +35,23 @@ function Projects() {
                 })
                 .catch(err => console.log(err))
     }, [])
+
+    function removerProjeto(id){
+        fetch(`http://localhost:5000/projects/${id}`,{
+            method: 'DELETE',
+            headers:{
+                'Content-type': 'application/json'
+            }
+        }).
+        then( resp => resp.json())
+        .then(data => {
+            setProjects(projects.filter( (project) => project.id !== id ))
+            setProjectMessage('Projeto removido com sucesso!')
+        })
+        .catch( (err) => {
+            console.log(err)
+        })
+    }
     return (
 
         <div className={styles.project_container}>
@@ -42,6 +60,7 @@ function Projects() {
                 <LinkButton to="/newprojects" text="Criar Projeto" />
 
             </div>
+            {projectMessage && <Message type="success" text={projectMessage} /> }
             <Container custonClass="start" >
                 <br />
                 {projects.length > 0 &&
@@ -52,6 +71,7 @@ function Projects() {
                             budget={project.budget}
                             category={project.category.name}
                             key={project.id}
+                            handleRemove={removerProjeto}
                         />
                     ))
                 }
