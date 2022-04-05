@@ -2,7 +2,7 @@
   "projects": [
     {
       "name": "Desenvolvimento de uma API Rest com Spring boot",
-      "budget": "15000",
+      "budget": "1500",
       "category": {
         "id": "2",
         "name": "Desenvolvimento"
