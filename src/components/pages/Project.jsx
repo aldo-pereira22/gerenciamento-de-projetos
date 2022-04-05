@@ -1,3 +1,4 @@
+import { parse, v4 as uuidv4  } from 'uuid'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -6,6 +7,7 @@ import Loading from '../layouts/Loading'
 import ProjectForm from '../project/ProjectForm'
 import styles from './Project.module.css'
 import Message from '../layouts/Message'
+import ServiceForm from '../servicos/ServiceForm'
 
 function Project() {
     const { id } = useParams()
@@ -33,6 +35,20 @@ function Project() {
         }, 100)
     }, [id])
 
+    function createService(project){
+        const lastService = project.services[project.services.length - 1]
+        lastService.id = uuidv4()
+        const lastServiceCost = lastService.cost
+        const newCost = parseFloat(project.cost) + parseFloat(lastServiceCost)
+
+        // Máximo valor do projeto
+        if(newCost > parseFloat(project.budget)){
+            setMessage('Orçamento ultrapassado, verifique o valor do serviço e do orçamento do projeto')
+            setType('error')
+            project.services.pop()
+            return false
+        }
+    }
     function editPost(project) {
         setMessage('')
         // Validação do orçamento
@@ -106,9 +122,12 @@ function Project() {
 
                             <div className={styles.project_info} >
                                 {showServiceForm && (
-                                    <div>
-                                        Formulário do serviço
-                                    </div>
+                                    <ServiceForm 
+                                        handleSubmit={createService}
+                                        btnText="Adicionar serviço"
+                                        projectData={project}
+                                    />
+
                                 )
 
                                 }
