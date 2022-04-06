@@ -22,35 +22,35 @@ function Projects() {
     }
 
     useEffect(() => {
-            fetch('http://localhost:5000/projects', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(resp => resp.json())
-                .then(data => {
-                    console.log(data)
-                    setProjects(data)
-                    setRemoveLoading(false)
-                })
-                .catch(err => console.log(err))
+        fetch('http://localhost:5000/projects', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => resp.json())
+            .then(data => {
+                console.log(data)
+                setProjects(data)
+                setRemoveLoading(false)
+            })
+            .catch(err => console.log(err))
     }, [])
 
-    function removerProjeto(id){
-        fetch(`http://localhost:5000/projects/${id}`,{
+    function removerProjeto(id) {
+        fetch(`http://localhost:5000/projects/${id}`, {
             method: 'DELETE',
-            headers:{
+            headers: {
                 'Content-type': 'application/json'
             }
         }).
-        then( resp => resp.json())
-        .then(data => {
-            setProjects(projects.filter( (project) => project.id !== id ))
-            setProjectMessage('Projeto removido com sucesso!')
-        })
-        .catch( (err) => {
-            console.log(err)
-        })
+            then(resp => resp.json())
+            .then(data => {
+                setProjects(projects.filter((project) => project.id !== id))
+                setProjectMessage('Projeto removido com sucesso!')
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
     return (
 
@@ -60,12 +60,16 @@ function Projects() {
                 <LinkButton to="/newprojects" text="Criar Projeto" />
 
             </div>
-            {projectMessage && <Message type="success" text={projectMessage} /> }
+            {projectMessage && <Message type="success" text={projectMessage} />}
             <Container custonClass="start" >
+
                 <br />
                 {projects.length > 0 &&
+
                     projects.map((project) => (
+
                         <ProjectCard
+
                             id={project.id}
                             name={project.name}
                             budget={project.budget}
@@ -75,7 +79,8 @@ function Projects() {
                         />
                     ))
                 }
-            {message && <Message type="success" msg={message} />}
+                {message && <Message type="success" msg={message} />}
+                {projects.id}
 
             </Container>
         </div>

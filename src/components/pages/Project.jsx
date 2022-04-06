@@ -1,4 +1,4 @@
-import { parse, v4 as uuidv4  } from 'uuid'
+import { parse, v4 as uuidv4 } from 'uuid'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -35,14 +35,16 @@ function Project() {
         }, 100)
     }, [id])
 
-    function createService(project){
+    function createService(project) {
         const lastService = project.services[project.services.length - 1]
         lastService.id = uuidv4()
+        
         const lastServiceCost = lastService.cost
         const newCost = parseFloat(project.cost) + parseFloat(lastServiceCost)
 
+        // console.log("Valor 1",lastServiceCost)
         // Máximo valor do projeto
-        if(newCost > parseFloat(project.budget)){
+        if (newCost > parseFloat(project.budget)) {
             setMessage('Orçamento ultrapassado, verifique o valor do serviço e do orçamento do projeto')
             setType('error')
             project.services.pop()
@@ -122,7 +124,7 @@ function Project() {
 
                             <div className={styles.project_info} >
                                 {showServiceForm && (
-                                    <ServiceForm 
+                                    <ServiceForm
                                         handleSubmit={createService}
                                         btnText="Adicionar serviço"
                                         projectData={project}
