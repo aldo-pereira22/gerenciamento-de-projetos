@@ -15,6 +15,7 @@ function NewProject() {
             headers:{
                 'Content-type':'application/json',
             },
+            
             body:JSON.stringify(project)
         })
         .then(

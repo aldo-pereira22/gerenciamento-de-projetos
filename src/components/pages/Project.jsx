@@ -40,15 +40,21 @@ function Project() {
         lastService.id = uuidv4()
         
         const lastServiceCost = lastService.cost
-        const newCost = parseFloat(project.cost) + parseFloat(lastServiceCost)
+        const newCost = parseFloat(project.budget) + parseFloat(lastServiceCost)
 
-        // console.log("Valor 1",lastServiceCost)
+
+
         // Máximo valor do projeto
         if (newCost > parseFloat(project.budget)) {
-            setMessage('Orçamento ultrapassado, verifique o valor do serviço e do orçamento do projeto')
-            setType('error')
-            project.services.pop()
-            return false
+
+            console.log("Custo=1", newCost)
+            console.log("Custo=2", project.budget)
+
+            alert("ERRADO")
+            // setMessage('Orçamento ultrapassado, verifique o valor do serviço e do orçamento do projeto')
+            // setType('error')
+            // project.services.pop()
+            // return false
         }
     }
     function editPost(project) {
