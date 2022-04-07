@@ -36,26 +36,42 @@ function Project() {
     }, [id])
 
     function createService(project) {
-        const lastService = project.services[project.services.length - 1]
-        lastService.id = uuidv4()
-        
-        const lastServiceCost = lastService.cost
-        const newCost = parseFloat(project.budget) + parseFloat(lastServiceCost)
+        setMessage('')
+            const lastService = project.services[project.services.length - 1]
+            lastService.id = uuidv4()
 
+            const lastServiceCost = lastService.cost
 
+            const newCost = parseFloat(project.cost) + parseFloat(lastServiceCost)
+            console.log("Novo CUSTO: ",newCost)    
+        console.log("ORÇAMENTO: ",project.budget)
 
-        // Máximo valor do projeto
-        if (newCost > parseFloat(project.budget)) {
+        // Verifica se o novo valor do custo é maior que o orçamento do projeto
+            if(newCost > parseFloat(project.budget)){
+                setMessage('Orçamento ultrapassado, verifique o valor do serviço')
+                setType('error')
+                project.services.pop()
+                return false
+            }
 
-            console.log("Custo=1", newCost)
-            console.log("Custo=2", project.budget)
+            project.cost = newCost
 
-            alert("ERRADO")
-            // setMessage('Orçamento ultrapassado, verifique o valor do serviço e do orçamento do projeto')
-            // setType('error')
-            // project.services.pop()
-            // return false
-        }
+            // Adiciona o serviço ao projeto
+            fetch(`http://localhost:5000/projects/${project.id}`,{
+                method:'PATCH',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(project)
+            })
+            .then( (resp ) => {
+                resp.json()
+            })
+            .then( (data) => {
+                console.log(data)
+            })
+            .catch(err => console.log(err))
+
     }
     function editPost(project) {
         setMessage('')
@@ -101,6 +117,8 @@ function Project() {
                 <div className={styles.project_details} >
                     <Container customClass="column">
                         {message && <Message type={type} msg={message} />}
+                        {/* <Message type={type} msg={message} /> */}
+
                         <div className={styles.details_container} >
                             <h1>Projeto: {project.name} </h1>
                             <button className={styles.btn} onClick={toggleProjectForm} >

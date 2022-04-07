@@ -1,23 +1,34 @@
 {
   "projects": [
     {
-      "name": "Desenvolvimento de uma API Rest com Spring boot",
-      "budget": "1500",
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "services": [],
-      "id": 1
-    },
-    {
-      "name": "Teste",
-      "budget": "2000",
+      "name": "Aldo",
+      "budget": "200",
       "category": {
         "id": "1",
         "name": "infra"
       },
-      "id": 2
+      "cost": 124,
+      "services": [
+        {
+          "name": "tes",
+          "cost": "1",
+          "description": "tes",
+          "id": "1d0b613d-5104-44a8-b23e-09a47a1a6cd3"
+        },
+        {
+          "name": "tes",
+          "cost": "1",
+          "description": "tes",
+          "id": "1d0b613d-5104-44a8-b23e-09a47a1a6cd3"
+        },
+        {
+          "name": "tes",
+          "cost": "122",
+          "description": "tes",
+          "id": "5aedfc5f-1800-4f70-8254-3fb83ffc6d01"
+        }
+      ],
+      "id": 1
     }
   ],
   "categories": [

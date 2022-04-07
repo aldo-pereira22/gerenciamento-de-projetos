@@ -14,7 +14,7 @@ function ServiceForm({handleSubmit, btnText, projectData}) {
     }
 
     function handleChange(e) {
-
+    
         setService({...service, [e.target.name]: e.target.value})
     }
     return (
@@ -37,7 +37,7 @@ function ServiceForm({handleSubmit, btnText, projectData}) {
                 type="text"
                 text="Descrição do serviço"
                 name="description"
-                placeholder="Descrve o serviço"
+                placeholder="Descreva o serviço"
                 handleOnChange={handleChange}
             />
             <SubmitButton text={btnText} />

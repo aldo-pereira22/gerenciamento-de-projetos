@@ -7,8 +7,8 @@ function NewProject() {
     const navigate = useNavigate()
 
     function createPost(project){
-        // project.cost: 0,
-        // project.services: []
+        project.cost = 0
+        project.services = []
 
         fetch('http://localhost:5000/projects',{
             method:'POST',
