@@ -8,10 +8,13 @@ import ProjectForm from '../project/ProjectForm'
 import styles from './Project.module.css'
 import Message from '../layouts/Message'
 import ServiceForm from '../servicos/ServiceForm'
+import ServiceCard from '../servicos/ServiceCard'
 
 function Project() {
     const { id } = useParams()
     const [project, setProject] = useState([])
+    const [services, setServices] = useState([])
+
     const [showProjectForm, setShowProjectForm] = useState(false)
     const [showServiceForm, setShowServiceForm] = useState(false)
 
@@ -30,6 +33,7 @@ function Project() {
             }).then(resp => resp.json())
                 .then((data) => {
                     setProject(data)
+                    setServices(data.services)
                 })
                 .catch(err => console.log(err))
         }, 100)
@@ -37,37 +41,38 @@ function Project() {
 
     function createService(project) {
         setMessage('')
-            const lastService = project.services[project.services.length - 1]
-            lastService.id = uuidv4()
+        const lastService = project.services[project.services.length - 1]
+        lastService.id = uuidv4()
 
-            const lastServiceCost = lastService.cost
+        const lastServiceCost = lastService.cost
 
-            const newCost = parseFloat(project.cost) + parseFloat(lastServiceCost)
-            console.log("Novo CUSTO: ",newCost)    
-        console.log("ORÇAMENTO: ",project.budget)
+        const newCost = parseFloat(project.cost) + parseFloat(lastServiceCost)
+        console.log("Novo CUSTO: ", newCost)
+        console.log("ORÇAMENTO: ", project.budget)
 
         // Verifica se o novo valor do custo é maior que o orçamento do projeto
-            if(newCost > parseFloat(project.budget)){
-                setMessage('Orçamento ultrapassado, verifique o valor do serviço')
-                setType('error')
-                project.services.pop()
-                return false
-            }
+        if (newCost > parseFloat(project.budget)) {
+            setMessage('Orçamento ultrapassado, verifique o valor do serviço')
+            setType('error')
+            project.services.pop()
+            return false
+        }
 
-            project.cost = newCost
+        project.cost = newCost
 
-            // Adiciona o serviço ao projeto
-            fetch(`http://localhost:5000/projects/${project.id}`,{
-                method:'PATCH',
-                headers:{
-                    'Content-Type': 'application/json'
-                },
-                body:JSON.stringify(project)
-            })
-            .then( (resp ) => {
+        // Adiciona o serviço ao projeto
+        fetch(`http://localhost:5000/projects/${project.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(project)
+        })
+            .then((resp) => {
                 resp.json()
             })
-            .then( (data) => {
+            .then((data) => {
+                setShowServiceForm(false)
                 console.log(data)
             })
             .catch(err => console.log(err))
@@ -109,6 +114,10 @@ function Project() {
         setShowServiceForm(!showServiceForm)
     }
 
+    function removeService() {
+
+    }
+
     return (
         <>
 
@@ -131,7 +140,7 @@ function Project() {
                                         <span>Total do orçamento:</span> R$ {project.budget}
                                     </p>
                                     <p>
-                                        <span>Total utilizado:</span>
+                                        <span>Total utilizado:</span> R$ {project.cost}
                                     </p>
                                 </div>
                             ) : (
@@ -163,7 +172,23 @@ function Project() {
                         </div>
                         <h2>Serviços</h2>
                         <Container customClass="start" >
-                            <p>Serviços</p>
+                            {services.length > 0 &&
+                                services.map((service) => (
+                                    <ServiceCard
+                                        id={service.id}
+                                        name={service.name}
+                                        cost={service.cost}
+                                        description={service.description}
+                                        key={service.id}
+                                        handleRemove={removeService}
+
+
+
+                                    />
+                                ))
+                            }
+
+                            {services.length == 0 && <p> Não Há serviços cadastrado</p>}
                         </Container>
                     </Container>
                 </div>

@@ -7,7 +7,7 @@
         "id": "1",
         "name": "infra"
       },
-      "cost": 124,
+      "cost": 184,
       "services": [
         {
           "name": "tes",
@@ -26,9 +26,39 @@
           "cost": "122",
           "description": "tes",
           "id": "5aedfc5f-1800-4f70-8254-3fb83ffc6d01"
+        },
+        {
+          "name": "Contratar um desenvolvedor de Java",
+          "cost": "60",
+          "description": "Implementar uma função em java",
+          "id": "88c98270-5a20-4383-8c5b-0e15ddb360d1"
         }
       ],
       "id": 1
+    },
+    {
+      "name": "teste",
+      "budget": "111111",
+      "category": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "cost": 3000,
+      "services": [
+        {
+          "name": "Contratar um desenvolvedor PHP",
+          "cost": "1500",
+          "description": "Desenvolver o cadastro de clientes",
+          "id": "9f90e221-cffd-4b6f-8a89-0db809b69ed3"
+        },
+        {
+          "name": "Contratar um desenvolvedor PHP",
+          "cost": "1500",
+          "description": "Desenvolver o cadastro de clientes",
+          "id": "cd11d4f5-5cd7-49b6-9b34-ffe90c57d061"
+        }
+      ],
+      "id": 2
     }
   ],
   "categories": [
