@@ -3,7 +3,8 @@ import styles from '../project/ProjectCard.module.css'
 function ServiceCard({ id, name, cost, description, handleRemove }) {
 
     const remove = (e) => {
-        alert("Falta implementação!")
+        e.preventDefault()
+        handleRemove(id,cost)
     }
     return (
 

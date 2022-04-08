@@ -43,21 +43,8 @@
         "id": "2",
         "name": "Desenvolvimento"
       },
-      "cost": 3000,
-      "services": [
-        {
-          "name": "Contratar um desenvolvedor PHP",
-          "cost": "1500",
-          "description": "Desenvolver o cadastro de clientes",
-          "id": "9f90e221-cffd-4b6f-8a89-0db809b69ed3"
-        },
-        {
-          "name": "Contratar um desenvolvedor PHP",
-          "cost": "1500",
-          "description": "Desenvolver o cadastro de clientes",
-          "id": "cd11d4f5-5cd7-49b6-9b34-ffe90c57d061"
-        }
-      ],
+      "cost": 0,
+      "services": [],
       "id": 2
     }
   ],
